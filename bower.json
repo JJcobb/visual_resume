@@ -1,0 +1,23 @@
+{
+  "name": "visual-resume",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~4.0.0-alpha.6",
+    "modernizr": "~2.8.1",
+    "d3": "^4.5.0",
+    "font-awesome": "Font-Awesome#^4.7.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "scss/bootstrap.scss",
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
