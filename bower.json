@@ -4,8 +4,9 @@
   "dependencies": {
     "bootstrap": "~4.0.0-alpha.6",
     "modernizr": "~2.8.1",
-    "d3": "^4.5.0",
-    "font-awesome": "Font-Awesome#^4.7.0"
+    "d3": "~3.5.17",
+    "font-awesome": "Font-Awesome#^4.7.0",
+    "openui5-sap.ui.core": "openui5/packaged-sap.ui.core#^1.44.6"
   },
   "overrides": {
     "bootstrap": {

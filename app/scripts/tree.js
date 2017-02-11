@@ -2,7 +2,7 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
     metadata: {
       properties: {
         width: {type: 'int', defaultValue: 1000},
-        height: {type: 'int', defaultValue: 800}
+        height: {type: 'int', defaultValue: 600}
       }
     },
 
@@ -36,14 +36,25 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
 
       var i = 0,
           duration = 750,
-          rectW = 250,
-          rectH = 250; /* was 50 */
+          rectW = 200,
+          rectH = 200; /****************** was 50 *********************/
 
       var tree = d3.layout.tree().nodeSize([70]);
+
+
       var diagonal = d3.svg.diagonal()
       .projection(function (d) {
         return [d.x + rectW/2, d.y + rectH/2];
       });
+
+
+      /*function link(d) {
+  return "M" + d.source.y + "," + d.source.x
+      + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
+      + " " + (d.source.y + d.target.y) / 2 + "," + d.target.x
+      + " " + d.target.y + "," + d.target.x;
+    };*/
+
 
       var svg = d3.select('#' + this.getId())
       .append('svg')
@@ -52,6 +63,7 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
       /*.call(zm = d3.behavior.zoom().scaleExtent([1,3])
             .on("zoom", redraw))*/
       .append('g')
+      .attr('class', 'tree-container')
       .attr('transform', 'translate(' + (this.getWidth() /2) + ',' + 20 + ')');
 
       /*zm.translate([50, 20]);*/
@@ -69,7 +81,8 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
 
       root.children.forEach(collapse);
       update(root);
-      d3.select('#' + this.getId()).style('height', '800px');
+      d3.select('#' + this.getId()).style('height', '500px'); /****** Height for each chart's container ********/
+
 
       function update(source) {
         var nodes = tree.nodes(root).reverse(),
@@ -92,13 +105,14 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
         })
         .on('click', click);
 
+
         nodeEnter.append('rect')
         .attr('width', rectW)
         .attr('height', rectH)
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
-        .attr('rx', 250) /* was 25 */
-        .attr('ry', 250) /* was 25 */
+        .attr('rx', 100)   /************** was 25 *****************/
+        .attr('ry', 100)   /************** was 25 *****************/
         .style('fill', function (d) {
           return d._children ? '#85ff77' : '#fff';
         });
@@ -116,7 +130,7 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
         var nodeUpdate = node.transition()
         .duration(duration)
         .attr('transform', function (d, i) {
-          return 'translate(' + (d.x*4) + ',' + d.y + ')';
+          return 'translate(' + (d.x*3) + ',' + d.y + ')';  /********** Space between them *************/
         });
 
         nodeUpdate.select('rect')
@@ -125,7 +139,7 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
         .style('fill', function (d) {
-          return d._children ? '#85ff77' : '#fff';
+          return d._children ? '#85ff77' : '#fff';   /***** Colors of circles  ******/
         });
 
         nodeUpdate.select('text')
@@ -210,6 +224,7 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
         update(d);
       }
 
+
       //Redraw for zoom
       function redraw() {
         //console.log("here", d3.event.translate, d3.event.scale);
@@ -222,17 +237,17 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
   
   
   			           
-  var org_chart = new dennisseah.OrgChart();
+ /* var org_chart = new dennisseah.OrgChart();
   org_chart.setRoot({
     name: 'Experience',
     children: [
-      {name: 'ROAR! Internet Marketing', children : [
+      {name: 'ROAR!', children : [
         {name:'Responsive Conversion'},
         {name:'ASP.NET Updates'},
         {name:'MailChimp Emails'},
       ]
       },
-      {name: 'On Target Web Solutions', children : [
+      {name: 'On Target', children : [
         {name:'Wordpress Updates'},
         {name:'Custom Themes'},
         {name:'Infographics'},
@@ -240,4 +255,27 @@ sap.ui.core.Control.extend('dennisseah.OrgChart', {
   	  },
     ]
   });
+  org_chart.placeAt('content');*/
+
+     var org_chart = new dennisseah.OrgChart();
+  org_chart.setRoot({
+    name: 'ROAR!',
+    children: [
+      {name: 'Responsive Conversion'},
+      {name: 'ASP.NET Updates'},
+      {name: 'MailChimp Emails'}
+    ]
+  });
   org_chart.placeAt('content');
+
+
+    var org_chart2 = new dennisseah.OrgChart();
+  org_chart2.setRoot({
+    name: 'On Target',
+    children: [
+      {name: 'Wordpress Updates'},
+      {name: 'Custom Themes'},
+      {name: 'Infographics'}
+    ]
+  });
+  org_chart2.placeAt('content');
